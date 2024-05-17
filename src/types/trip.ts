@@ -1,14 +1,13 @@
-export interface Trip extends Departure, Arrival, User {
-  typeOfTrip?: "only arrival" | "only departure" | "arrival and departure";
+export interface Trip extends Departure, Arrival, User, Service {
   numberOfChilds?: number | null; //[bambini]
   numberOfAdults?: number | null; //[adulti]
   additionalInfo?: string | null; //[info]
-  childSeats?: string | null; //[seggiolini]
+  numberOfChildSeats?: number | null; //[seggiolini]
 }
 
 interface Departure {
   //[sp]
-  pickupAddress?: string | null;
+  pickupAddress?: string | null; //[incontro]
   departureAirport?: string | null; //[aeroporto-partenza-p]
   dateDeparture?: any;
   timeDeparture?: any;
@@ -30,4 +29,13 @@ interface User {
   phone: string | null; //[telefono]
 }
 
-/*[incontro][aep][aeroporto-arrivo-aep-a][destinazione-aep][aeroporto-aep-p][bamb][privacy]*/
+interface Service {
+  serviceType?: "only arrival" | "only departure" | "arrival and departure";
+  cost?: string;
+  isTheCostForEachWay?: boolean;
+  isTheCostForChildSeatIncluded?: boolean;
+  additionalServiceInfo?: string;
+  transferType?: "Private";
+}
+
+/*[bamb][privacy]*/

@@ -7,6 +7,7 @@ import { Trip } from "~/types/trip";
 export default function SendEmailButton({ trip }: { trip: Trip }) {
   return (
     <Button
+      type="button"
       size={"lg"}
       onClick={async () => {
         await fetch("/api/emails", {

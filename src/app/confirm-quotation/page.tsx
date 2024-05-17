@@ -3,6 +3,9 @@
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import SendEmailButton from "~/components/send-email-button.component";
+import { Card } from "~/components/ui/card";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
 import { Trip } from "~/types/trip";
 
 export default function ConfirmQuotation() {
@@ -13,6 +16,12 @@ export default function ConfirmQuotation() {
     phone: searchParams.get("phone"),
     email: searchParams.get("email"),
     pickupAddress: searchParams.get("pickupAddress"),
+    serviceType: "only arrival",
+    cost: "",
+    isTheCostForEachWay: true,
+    isTheCostForChildSeatIncluded: true,
+    additionalServiceInfo: "",
+    transferType: "Private",
   });
 
   const params: Record<string, string | null> = {};
@@ -22,14 +31,16 @@ export default function ConfirmQuotation() {
   console.log(params);
 
   return (
-    <div>
-      {Object.entries(trip).map(([key, value], index: number) => (
-        <p key={index}>
-          <strong>{key}: </strong>
-          {value}
-        </p>
-      ))}
-      <SendEmailButton trip={trip} />
-    </div>
+    <form>
+      <Card className="flex flex-col gap-y-3 border p-6">
+        {Object.entries(trip).map(([key, value], index: number) => (
+          <div key={index}>
+            <Label>{key}</Label>
+            <Input value={value || ""} placeholder={key} readOnly />
+          </div>
+        ))}
+        <SendEmailButton trip={trip} />
+      </Card>
+    </form>
   );
 }
